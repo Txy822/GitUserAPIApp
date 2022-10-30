@@ -20,7 +20,8 @@ class AppModule {
     //provide the retrofit instance
     fun providesRetrofit(): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(UsersApiDetails.BASE_URL)
+//        .baseUrl(UsersApiDetails.BASE_URL)
+        .baseUrl(UsersApiDetails.BASE_URL_PEOPLE)
         .build()
 
     @Provides

@@ -1,7 +1,12 @@
 package com.tes.eat.anywhere.userapiapp.model.data.remote.api
 
-import com.tes.eat.anywhere.userapiapp.model.data.remote.userresponse.UserList
+import androidx.compose.ui.input.key.Key.Companion.H
+import com.tes.eat.anywhere.userapiapp.model.data.remote.people.People
+import com.tes.eat.anywhere.userapiapp.model.data.remote.people.PeopleItem
+import com.tes.eat.anywhere.userapiapp.model.data.remote.userresponse.User
+import com.tes.eat.anywhere.userapiapp.model.data.remote.userresponse.Users
 import retrofit2.Response
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
@@ -13,11 +18,17 @@ interface UserApi {
     fun getSearches(
         //@Query("q") query:String
         @Query("q") query:String ="tesfahun"
-        ):Response<UserList> //call<UserList>
+        ):List<User> //call<Users>
 
 
     @GET(UsersApiDetails.User_end) //@GET("users")
-    @Headers("Authorisation:token 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")
+
+    @Headers("Accept: application/vnd.github+json")
     fun getUsers(
-    ):Response<UserList> //call<UserList>
+    ):List<User> //call<Users>
+
+
+    @GET(UsersApiDetails.PEOPLE) //to define type of request GET, POST, PUT
+    suspend fun getPeople(): List<PeopleItem>
+
 }

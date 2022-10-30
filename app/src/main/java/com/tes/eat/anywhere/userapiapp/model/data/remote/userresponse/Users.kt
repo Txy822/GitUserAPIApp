@@ -16,10 +16,6 @@ curl \
 https://api.github.com/users
 */
 
-data class UserList(
-    @SerializedName("incomplete_results")
-    val incompleteResults: Boolean = false,
-    @SerializedName("items")
-    val users: List<User> = listOf(),
-
+data class Users(
+    val users: List<User> = listOf()
 )
