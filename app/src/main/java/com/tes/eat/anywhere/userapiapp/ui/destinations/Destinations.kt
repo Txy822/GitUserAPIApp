@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.tes.eat.anywhere.userapiapp.model.data.remote.people.PeopleItem
 
 interface Destination {
 
@@ -13,10 +14,12 @@ interface Destination {
 
 object Home : Destination {
     override val icon = Icons.Filled.AccountBox
-    override val route = "overview"
+    override val route = "home"
 }
 
 object Profile : Destination {
     override val icon = Icons.Filled.Add
-    override val route = "accounts"
+    override val route = "profile"
+    val person:PeopleItem = PeopleItem()
+    val routeWithArgs = "$route/{$person}"
 }

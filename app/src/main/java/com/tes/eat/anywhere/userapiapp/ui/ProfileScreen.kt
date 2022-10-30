@@ -3,10 +3,7 @@ package com.tes.eat.anywhere.userapiapp.ui
 import androidx.compose.runtime.Composable
 
 import android.content.Context
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -26,13 +23,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tes.eat.anywhere.userapiapp.R
+import com.tes.eat.anywhere.userapiapp.model.data.remote.people.PeopleItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -44,7 +39,7 @@ For more designs with source code,
 visit: https://semicolonspace.com/jetpack-compose-samples/
  */
 @Composable
-fun  ProfileScreen() {
+fun  ProfileScreen(userName:String) {
 
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -53,7 +48,7 @@ fun  ProfileScreen() {
                     // Top appbar
                     TopAppbarProfile(context = LocalContext.current.applicationContext)
 
-                    ProfileEcommerce()
+                    ProfileEcommerce(username =userName)
                 }
 }
 
@@ -85,7 +80,7 @@ fun TopAppbarProfile(context: Context) {
 }
 
 @Composable
-fun ProfileEcommerce(context: Context = LocalContext.current.applicationContext) {
+fun ProfileEcommerce(username:String, context: Context = LocalContext.current.applicationContext) {
 
     // This indicates if the optionsList has data or not
     // Initially, the list is empty. So, its value is false.
@@ -113,7 +108,7 @@ fun ProfileEcommerce(context: Context = LocalContext.current.applicationContext)
 
             item {
                 // User's image, name, email and edit button
-                UserDetails(context = context)
+                UserDetails(context = context, username)
             }
 
             // Show the options
@@ -127,7 +122,7 @@ fun ProfileEcommerce(context: Context = LocalContext.current.applicationContext)
 
 // This composable displays user's image, name, email and edit button
 @Composable
-private fun UserDetails(context: Context) {
+private fun UserDetails(context: Context, username: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -170,7 +165,7 @@ private fun UserDetails(context: Context) {
 
                 // User's email
                 Text(
-                    text = "email123@email.com",
+                    text = username,
                     style = TextStyle(
                         fontSize = 14.sp,
                         //fontStyle =FontFamily(font),
