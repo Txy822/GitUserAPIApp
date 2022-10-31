@@ -1,17 +1,25 @@
 package com.tes.eat.anywhere.userapiapp.model.data.repository
 
-import com.tes.eat.anywhere.userapiapp.model.data.remote.api.UserApi
-import com.tes.eat.anywhere.userapiapp.model.data.remote.people.People
+import com.tes.eat.anywhere.userapiapp.model.data.remote.api.fake.FakeApi
+import com.tes.eat.anywhere.userapiapp.model.data.remote.api.github.UserApi
+import com.tes.eat.anywhere.userapiapp.model.data.remote.api.people.PeopleApi
+import com.tes.eat.anywhere.userapiapp.model.data.remote.fake.Fake
+import retrofit2.Response
 import javax.inject.Inject
 
 class DefaultUserRepository @Inject constructor(
-    private val userApi:UserApi
-//    private val q:String
+    private val userApi: UserApi,
+    private val peopleApi:PeopleApi,
+    private val fakeApi:FakeApi,
 ):UserRepository {
-    override suspend fun getSearches() =userApi.getUsers()
-    //override suspend fun getSearches() =userApi.getSearches(q)
 
-   override suspend fun getUsers()=userApi.getUsers()
+    override suspend fun getUsers()=userApi.getUsers()
+    override suspend fun getPeople()= peopleApi.getPeople()
 
-    override suspend fun getPeople()=userApi.getPeople()
+
+    override suspend fun getData(number: String) =fakeApi.getData(number)
+    override suspend fun getSearches(name: String)=userApi.getSearches(name)
+
+//    override suspend fun getData() =fakeApi.getData()
+//    override suspend fun getSearches()=userApi.getSearches()
 }

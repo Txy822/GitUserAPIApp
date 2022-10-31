@@ -1,8 +1,8 @@
-package com.tes.eat.anywhere.userapiapp.model.data.remote.people
+package com.tes.eat.anywhere.userapiapp.model.data.remote.peopleresponse
 
 import com.google.gson.annotations.SerializedName
 
-data class Data(
+data class PeopleData(
     @SerializedName("body")
     val bodyModel: String = "",
     @SerializedName("fromId")

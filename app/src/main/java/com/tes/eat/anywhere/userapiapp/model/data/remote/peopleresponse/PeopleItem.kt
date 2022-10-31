@@ -1,4 +1,4 @@
-package com.tes.eat.anywhere.userapiapp.model.data.remote.people
+package com.tes.eat.anywhere.userapiapp.model.data.remote.peopleresponse
 
 import com.google.gson.annotations.SerializedName
 
@@ -8,7 +8,7 @@ data class PeopleItem(
     @SerializedName("createdAt")
     val createdAtModel: String = "",
     @SerializedName("data")
-    val dataModel: Data = Data(),
+    val dataModel: PeopleData = PeopleData(),
     @SerializedName("email")
     val emailModel: String = "",
     @SerializedName("favouriteColor")

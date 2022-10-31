@@ -1,7 +1,5 @@
 package com.tes.eat.anywhere.userapiapp.ui
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,20 +16,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.tes.eat.anywhere.userapiapp.R
-import com.tes.eat.anywhere.userapiapp.model.data.remote.people.PeopleItem
+import com.tes.eat.anywhere.userapiapp.model.data.remote.fake.Data
 
 // Step: Home screen - Scrolling
 @Composable
 fun HomeScreen(
     onClickItems: () -> Unit = {},
     modifier: Modifier = Modifier,
-    homeViewModel:ViewModel,
-    state: List<PeopleItem>
+    homeUserViewModel:UserViewModel,
+    state: List<Data>,
+    //person:PeopleItem,
     ) {
     Column(
         modifier
@@ -39,13 +37,13 @@ fun HomeScreen(
     ) {
         Spacer(Modifier.height(16.dp))
         SearchBar(Modifier.padding(horizontal = 16.dp))
-            Home(homeViewModel,state,onClickItems)
+            Home(homeUserViewModel,state,onClickItems)
         Spacer(Modifier.height(16.dp))
     }
 }
 
 @Composable
-fun  Home(homeViewModel:ViewModel, state: List<PeopleItem>, onClickItems: () -> Unit = {}) {
+fun  Home(homeUserViewModel:UserViewModel, state: List<Data>, onClickItems: () -> Unit = {}) {
 
 //cab be changed to lazyrow
     LazyRow{
@@ -58,15 +56,15 @@ fun  Home(homeViewModel:ViewModel, state: List<PeopleItem>, onClickItems: () -> 
                 )
             }
         }
-            items(state) { user: PeopleItem ->
+            items(state) { user: Data ->
                 UserImageCard(user = user, onClickItems)
             }
         }
 }
 
 @Composable
-fun UserImageCard(user:PeopleItem,onClickItems: () -> Unit = {} ){
-    val imagePainter = rememberAsyncImagePainter(user.avatarModel)
+fun UserImageCard(user: Data, onClickItems: () -> Unit = {} ){
+    val imagePainter = rememberAsyncImagePainter(user.avatar)
 
     Card(shape = MaterialTheme.shapes.medium,
         modifier = Modifier.padding(16.dp)
@@ -85,7 +83,7 @@ fun UserImageCard(user:PeopleItem,onClickItems: () -> Unit = {} ){
                     .clip(CircleShape)
             )
             Text(
-                text = user.firstNameModel,
+                text = user.firstName,
                 style = MaterialTheme.typography.body1,
                 modifier = Modifier.paddingFromBaseline(
                     top = 24.dp, bottom = 8.dp

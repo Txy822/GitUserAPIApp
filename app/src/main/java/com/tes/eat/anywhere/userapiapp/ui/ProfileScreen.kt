@@ -21,23 +21,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
 import com.tes.eat.anywhere.userapiapp.R
-import com.tes.eat.anywhere.userapiapp.model.data.remote.people.PeopleItem
+import com.tes.eat.anywhere.userapiapp.model.data.remote.peopleresponse.PeopleItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 
-/*
-You can use the following code for commercial purposes with some restrictions.
-Read the full license here: https://semicolonspace.com/semicolonspace-license/
-For more designs with source code,
-visit: https://semicolonspace.com/jetpack-compose-samples/
- */
 @Composable
 fun  ProfileScreen(userName:String) {
 
@@ -48,7 +42,7 @@ fun  ProfileScreen(userName:String) {
                     // Top appbar
                     TopAppbarProfile(context = LocalContext.current.applicationContext)
 
-                    ProfileEcommerce(username =userName)
+                    ProfileDetail(username =userName)
                 }
 }
 
@@ -80,10 +74,8 @@ fun TopAppbarProfile(context: Context) {
 }
 
 @Composable
-fun ProfileEcommerce(username:String, context: Context = LocalContext.current.applicationContext) {
+fun  ProfileDetail(username:String, context: Context = LocalContext.current.applicationContext) {
 
-    // This indicates if the optionsList has data or not
-    // Initially, the list is empty. So, its value is false.
     var listPrepared by remember {
         mutableStateOf(false)
     }
@@ -92,7 +84,6 @@ fun ProfileEcommerce(username:String, context: Context = LocalContext.current.ap
         withContext(Dispatchers.Default) {
             optionsList.clear()
 
-            // Add the data to optionsList
             prepareOptionsData()
 
             listPrepared = true
@@ -111,7 +102,6 @@ fun ProfileEcommerce(username:String, context: Context = LocalContext.current.ap
                 UserDetails(context = context, username)
             }
 
-            // Show the options
             items(optionsList) { item ->
                 OptionsItemStyle(item = item, context = context)
             }
@@ -123,6 +113,9 @@ fun ProfileEcommerce(username:String, context: Context = LocalContext.current.ap
 // This composable displays user's image, name, email and edit button
 @Composable
 private fun UserDetails(context: Context, username: String) {
+    //val imagePainter = rememberAsyncImagePainter(person.avatarModel)
+    val imagePainter = rememberAsyncImagePainter( R.drawable.ic_launcher_background)
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -135,7 +128,9 @@ private fun UserDetails(context: Context, username: String) {
             modifier = Modifier
                 .size(72.dp)
                 .clip(shape = CircleShape),
-            painter = painterResource(id = R.drawable.ic_launcher_background),
+            painter = imagePainter,
+           // painter = painterResource(id = R.drawable.ic_launcher_background),
+
             contentDescription = "Your Image"
         )
 
@@ -152,7 +147,7 @@ private fun UserDetails(context: Context, username: String) {
 
                 // User's name
                 Text(
-                    text = "Victoria Steele",
+                    text = username,
                     style = TextStyle(
                         fontSize = 22.sp,
                        // fontFamily = FontFamily(Font(R., FontWeight.Bold)),
@@ -165,11 +160,9 @@ private fun UserDetails(context: Context, username: String) {
 
                 // User's email
                 Text(
-                    text = username,
+                    text = "abcd123@gmail.com",
                     style = TextStyle(
                         fontSize = 14.sp,
-                        //fontStyle =FontFamily(font),
-                        //fontFamily = FontFamily(Font(R.font.roboto_regular, FontWeight.Normal)),
                         color = Color.Gray,
                         letterSpacing = (0.8).sp
                     ),
