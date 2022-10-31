@@ -18,9 +18,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.tes.eat.anywhere.userapiapp.R
 import com.tes.eat.anywhere.userapiapp.model.data.remote.fake.Data
+import com.tes.eat.anywhere.userapiapp.model.data.remote.userresponse.User
 
 // Step: Home screen - Scrolling
 @Composable
@@ -28,8 +30,10 @@ fun HomeScreen(
     onClickItems: () -> Unit = {},
     modifier: Modifier = Modifier,
     homeUserViewModel:UserViewModel,
-    state: List<Data>,
+    state: List<User>,
+    //state: List<Data>,
     //person:PeopleItem,
+    navController: NavController
     ) {
     Column(
         modifier
@@ -37,13 +41,13 @@ fun HomeScreen(
     ) {
         Spacer(Modifier.height(16.dp))
         SearchBar(Modifier.padding(horizontal = 16.dp))
-            Home(homeUserViewModel,state,onClickItems)
+            Home(homeUserViewModel,state,onClickItems,navController)
         Spacer(Modifier.height(16.dp))
     }
 }
 
 @Composable
-fun  Home(homeUserViewModel:UserViewModel, state: List<Data>, onClickItems: () -> Unit = {}) {
+fun  Home(homeUserViewModel:UserViewModel, state: List<User>, onClickItems: () -> Unit = {},navController: NavController) {
 
 //cab be changed to lazyrow
     LazyRow{
@@ -56,15 +60,15 @@ fun  Home(homeUserViewModel:UserViewModel, state: List<Data>, onClickItems: () -
                 )
             }
         }
-            items(state) { user: Data ->
+            items(state) { user: User ->
                 UserImageCard(user = user, onClickItems)
             }
         }
 }
 
 @Composable
-fun UserImageCard(user: Data, onClickItems: () -> Unit = {} ){
-    val imagePainter = rememberAsyncImagePainter(user.avatar)
+fun UserImageCard(user: User, onClickItems: () -> Unit = {} ){
+    val imagePainter = rememberAsyncImagePainter(user.avatarUrl)
 
     Card(shape = MaterialTheme.shapes.medium,
         modifier = Modifier.padding(16.dp)
@@ -83,7 +87,7 @@ fun UserImageCard(user: Data, onClickItems: () -> Unit = {} ){
                     .clip(CircleShape)
             )
             Text(
-                text = user.firstName,
+                text = user.login,
                 style = MaterialTheme.typography.body1,
                 modifier = Modifier.paddingFromBaseline(
                     top = 24.dp, bottom = 8.dp

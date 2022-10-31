@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.tes.eat.anywhere.userapiapp.model.data.remote.fake.Data
+import com.tes.eat.anywhere.userapiapp.model.data.remote.userresponse.User
 import com.tes.eat.anywhere.userapiapp.ui.HomeScreen
 import com.tes.eat.anywhere.userapiapp.ui.ProfileScreen
 import com.tes.eat.anywhere.userapiapp.ui.UserViewModel
@@ -18,10 +19,12 @@ fun APPNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     homeUserViewModel: UserViewModel,
-    state: List<Data>,
+    state: List<User>,
+    //state: List<Data>,
     //person:PeopleItem,
     userName:String="Tesfahun"
     ){
+
         NavHost(
         navController = navController,
         startDestination = Home.route,
@@ -33,12 +36,14 @@ fun APPNavHost(
                         navController.navigate(Profile.route + "/$userName")
                 },
                 homeUserViewModel=  homeUserViewModel,
-                state =state
+                state =state,
+                    navController= navController
             )
         }
         composable(route = Profile.route + "/{userName}") { backStackEntry ->
             val userName = backStackEntry.arguments?.getString("userName")
-            ProfileScreen(userName!!)
+            ProfileScreen(userName= userName!!,
+                navController= navController)
         }
     }
 }

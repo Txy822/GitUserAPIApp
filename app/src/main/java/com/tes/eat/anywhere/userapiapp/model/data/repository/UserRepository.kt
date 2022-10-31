@@ -9,13 +9,13 @@ import retrofit2.http.Query
 
 interface UserRepository {
 
-    suspend fun  getUsers(): List<User>
+    suspend fun  getUsers(token:String): List<User>
 
     suspend fun  getPeople(): List<PeopleItem>
 
     suspend fun  getData(@Query("page") number: String): Response<Fake>
     suspend fun getSearches(@Query("q") name: String):List<User>
-
+  //  suspend fun  getUsers(): List<User>
 //    suspend fun  getData(): Response<Fake>
 //    suspend fun getSearches():List<User>
 

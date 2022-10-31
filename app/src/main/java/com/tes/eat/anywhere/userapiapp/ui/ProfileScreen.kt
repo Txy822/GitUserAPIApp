@@ -25,6 +25,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.tes.eat.anywhere.userapiapp.R
 import com.tes.eat.anywhere.userapiapp.model.data.remote.peopleresponse.PeopleItem
@@ -33,14 +34,14 @@ import kotlinx.coroutines.withContext
 
 
 @Composable
-fun  ProfileScreen(userName:String) {
+fun  ProfileScreen(userName:String, navController: NavController) {
 
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     // Top appbar
-                    TopAppbarProfile(context = LocalContext.current.applicationContext)
+                    TopAppbarProfile(context = LocalContext.current.applicationContext,navController)
 
                     ProfileDetail(username =userName)
                 }
@@ -49,7 +50,7 @@ fun  ProfileScreen(userName:String) {
 private val optionsList: ArrayList<OptionsData> = ArrayList()
 
 @Composable
-fun TopAppbarProfile(context: Context) {
+fun TopAppbarProfile(context: Context,navController: NavController) {
     TopAppBar(
         title = {
             Text(
@@ -62,11 +63,14 @@ fun TopAppbarProfile(context: Context) {
         elevation = 4.dp,
         navigationIcon = {
             IconButton(onClick = {
+                navController.navigateUp()
                 Toast.makeText(context, "Nav Button", Toast.LENGTH_SHORT).show()
+
             }) {
                 Icon(
                     Icons.Filled.ArrowBack,
                     contentDescription = "Go back",
+
                 )
             }
         }

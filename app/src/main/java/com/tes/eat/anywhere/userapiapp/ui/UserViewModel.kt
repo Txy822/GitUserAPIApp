@@ -22,6 +22,9 @@ class UserViewModel @Inject constructor(
 //    private val _personState:MutableState<List<PeopleItem>> = mutableStateOf(emptyList())
 //    val personState:MutableState<List<PeopleItem>>
 //        get() =_personState
+//private val VALID_TOKEN="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"
+    private val VALID_TOKEN="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"
+
 
     private val _personState: MutableState<List<Data>> = mutableStateOf(emptyList())
     val personState: MutableState<List<Data>>
@@ -33,9 +36,11 @@ class UserViewModel @Inject constructor(
 
     init {
         CoroutineScope(Dispatchers.Main).launch {
-            val fakeData = repository.getData("2")
+            val users = repository.getUsers("token $VALID_TOKEN")
+            //val fakeData = repository.getData("2")
             //val fakeData =repository.getData()
-            _personState.value = fakeData.body()!!.data
+           // _personState.value = fakeData.body()!!.data
+            _userState.value=users
         }
     }
 

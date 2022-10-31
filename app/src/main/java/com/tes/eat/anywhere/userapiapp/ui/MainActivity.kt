@@ -27,7 +27,8 @@ fun UserApiApp(){
     UserAPIAppTheme {
         val navController = rememberNavController()
         val homeUserViewModel = viewModel(modelClass = UserViewModel::class.java)
-        val state by homeUserViewModel.personState
+        //val state by homeUserViewModel.personState
+        val state by homeUserViewModel.userState
         APPNavHost(navController = navController, modifier = Modifier, homeUserViewModel, state)
     }
 }

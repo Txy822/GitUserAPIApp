@@ -32,7 +32,7 @@ class AppModule {
     @Provides
     //provide the retrofit instance
     fun providesRetrofit(): Retrofit = Retrofit.Builder()
-        //.client(okHttpClient)
+        .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
 //        .baseUrl(UsersApiDetails.BASE_URL)
         .baseUrl(UsersApiDetails.BASE_URL)
@@ -62,6 +62,16 @@ class AppModule {
     ): UserRepository {
         return DefaultUserRepository(userApi, peopleApi, fakeApi)
     }
+
+
+
+    /*
+    @Provides
+fun providesUsersApi(retrofit: Retrofit): UserApi = retrofit.newBuilder()
+    .client(okHttpClient)
+    .baseUrl(UsersApiDetails.BASE_URL)
+    .build().create(UserApi::class.java)
+ */
 
     /*
     object RetrofitClient {
