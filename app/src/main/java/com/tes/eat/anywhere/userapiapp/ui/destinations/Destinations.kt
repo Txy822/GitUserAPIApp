@@ -8,17 +8,17 @@ import com.tes.eat.anywhere.userapiapp.model.data.remote.peopleresponse.PeopleIt
 
 interface Destination {
 
-        val icon: ImageVector
+       // val icon: ImageVector
         val route: String
 }
 
 object Home : Destination {
-    override val icon = Icons.Filled.AccountBox
+    //override val icon = Icons.Filled.AccountBox
     override val route = "home"
 }
 
 object Profile : Destination {
-    override val icon = Icons.Filled.Add
+   // override val icon = Icons.Filled.Add
     override val route = "profile"
     private val person:PeopleItem = PeopleItem()
     val routeWithArgs = "$route/{$person}"

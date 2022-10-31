@@ -34,23 +34,26 @@ import kotlinx.coroutines.withContext
 
 
 @Composable
-fun  ProfileScreen(userName:String, navController: NavController) {
+fun  ProfileScreen(userName:String, id:String, navController: NavController) {
+
+//fun  ProfileScreen(userName:String, navController: NavController,profileViewModel: ProfileViewModel) {
 
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     // Top appbar
-                    TopAppbarProfile(context = LocalContext.current.applicationContext,navController)
+                    TopAppbarProfile(context = LocalContext.current.applicationContext,navController=navController)
+                    ProfileDetail(username =userName,id=id,context = LocalContext.current.applicationContext)
 
-                    ProfileDetail(username =userName)
+                   // ProfileDetail(username =userName,context = LocalContext.current.applicationContext, profileViewModel=profileViewModel)
                 }
 }
 
 private val optionsList: ArrayList<OptionsData> = ArrayList()
 
 @Composable
-fun TopAppbarProfile(context: Context,navController: NavController) {
+fun TopAppbarProfile(context: Context, navController: NavController) {
     TopAppBar(
         title = {
             Text(
@@ -78,7 +81,7 @@ fun TopAppbarProfile(context: Context,navController: NavController) {
 }
 
 @Composable
-fun  ProfileDetail(username:String, context: Context = LocalContext.current.applicationContext) {
+fun  ProfileDetail(username:String,id:String, context: Context = LocalContext.current.applicationContext) {
 
     var listPrepared by remember {
         mutableStateOf(false)
@@ -103,7 +106,7 @@ fun  ProfileDetail(username:String, context: Context = LocalContext.current.appl
 
             item {
                 // User's image, name, email and edit button
-                UserDetails(context = context, username)
+                UserDetails(context = context, username, id=id)
             }
 
             items(optionsList) { item ->
@@ -116,7 +119,7 @@ fun  ProfileDetail(username:String, context: Context = LocalContext.current.appl
 
 // This composable displays user's image, name, email and edit button
 @Composable
-private fun UserDetails(context: Context, username: String) {
+private fun UserDetails(context: Context, username: String, id:String) {
     //val imagePainter = rememberAsyncImagePainter(person.avatarModel)
     val imagePainter = rememberAsyncImagePainter( R.drawable.ic_launcher_background)
 
@@ -151,7 +154,9 @@ private fun UserDetails(context: Context, username: String) {
 
                 // User's name
                 Text(
-                    text = username,
+                    text = "Login :$username",
+
+
                     style = TextStyle(
                         fontSize = 22.sp,
                        // fontFamily = FontFamily(Font(R., FontWeight.Bold)),
@@ -164,7 +169,7 @@ private fun UserDetails(context: Context, username: String) {
 
                 // User's email
                 Text(
-                    text = "abcd123@gmail.com",
+                    text = "ID: $id",
                     style = TextStyle(
                         fontSize = 14.sp,
                         color = Color.Gray,

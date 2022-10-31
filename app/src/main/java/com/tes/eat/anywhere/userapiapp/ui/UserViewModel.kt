@@ -1,5 +1,6 @@
 package com.tes.eat.anywhere.userapiapp.ui
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -11,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 import javax.inject.Inject
 
@@ -23,7 +25,7 @@ class UserViewModel @Inject constructor(
 //    val personState:MutableState<List<PeopleItem>>
 //        get() =_personState
 //private val VALID_TOKEN="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"
-    private val VALID_TOKEN="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"
+    private val VALID_TOKEN="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"
 
 
     private val _personState: MutableState<List<Data>> = mutableStateOf(emptyList())
@@ -36,11 +38,19 @@ class UserViewModel @Inject constructor(
 
     init {
         CoroutineScope(Dispatchers.Main).launch {
-            val users = repository.getUsers("token $VALID_TOKEN")
-            //val fakeData = repository.getData("2")
-            //val fakeData =repository.getData()
-           // _personState.value = fakeData.body()!!.data
-            _userState.value=users
+
+            try {
+                val users = repository.getUsers("token $VALID_TOKEN")
+                //val fakeData = repository.getData("2")
+                //val fakeData =repository.getData()
+                // _personState.value = fakeData.body()!!.data
+                _userState.value=users
+                Log.i("Tag", "Data Fetched")
+            }catch(e: IOException) {
+                Log.i("Tag", "Fetchich data problem")
+                e.printStackTrace();
+            }
+
         }
     }
 
