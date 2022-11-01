@@ -21,12 +21,8 @@ class UserViewModel @Inject constructor(
     private val repository: UserRepository
 ) : ViewModel() {
 
-//    private val _personState:MutableState<List<PeopleItem>> = mutableStateOf(emptyList())
-//    val personState:MutableState<List<PeopleItem>>
-//        get() =_personState
-//private val VALID_TOKEN="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"
-    private val VALID_TOKEN="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"
-
+    private val VALID_TOKEN =
+        "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"
 
     private val _personState: MutableState<List<Data>> = mutableStateOf(emptyList())
     val personState: MutableState<List<Data>>
@@ -41,17 +37,13 @@ class UserViewModel @Inject constructor(
 
             try {
                 val users = repository.getUsers("token $VALID_TOKEN")
-                //val fakeData = repository.getData("2")
-                //val fakeData =repository.getData()
-                // _personState.value = fakeData.body()!!.data
-                _userState.value=users
+                _userState.value = users
                 Log.i("Tag", "Data Fetched")
-            }catch(e: IOException) {
+            } catch (e: IOException) {
                 Log.i("Tag", "Fetchich data problem")
                 e.printStackTrace();
             }
 
         }
     }
-
 }

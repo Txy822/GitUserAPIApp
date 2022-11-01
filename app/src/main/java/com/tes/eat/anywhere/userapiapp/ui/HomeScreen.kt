@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
@@ -56,7 +58,7 @@ fun Home(
     state: List<User>,
     navController: NavController
 ) {
-    Users(users =state) { user ->
+    Users(users = state) { user ->
         navController.navigate(route = "${Profile.route}?login=${user.login} id=${user.id}")
     }
 }
@@ -70,35 +72,49 @@ fun Users(users: List<User>?, onClick: (User) -> Unit) {
         Divider()
     }
 }
+
 @Composable
 fun UserRow(user: User, onClick: () -> Unit) {
     val imagePainter = rememberAsyncImagePainter(user.avatarUrl)
 
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .padding(8.dp)
-        .clickable { onClick() }
-        .shadow(shape = CircleShape, elevation = 4.dp)
-        .background(Color.Cyan),
-        horizontalAlignment = Alignment.CenterHorizontally
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .clickable { onClick() }
+            .shadow(shape = RectangleShape, elevation = 2.dp)
+            .background(Color.Black),
+//        horizontalAlignment = Alignment.CenterHorizontally
 
     ) {
 
-        Image(
-            painter = imagePainter,
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
+        Card(
+            shape = RoundedCornerShape(10.dp),
+            backgroundColor = Color.LightGray,
             modifier = Modifier
-                .size(88.dp)
-                .clip(CircleShape)
-        )
-        Text(
-            text = "${user.login}: Given ID ${user.id}",
-            style = MaterialTheme.typography.subtitle1,
-            modifier = Modifier.paddingFromBaseline(
-                top = 20.dp, bottom = 8.dp
-            ).shadow(shape = RectangleShape, elevation = 1.dp, spotColor = Color.Blue)
-        )
+                .padding(16.dp)
+                .size(160.dp)
+        ) {
+            Column() {
+                Image(
+                    painter = imagePainter,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(88.dp)
+                        .clip(CircleShape)
+                )
+                Text(
+                    text = "${user.login}: Given ID ${user.id}",
+                    style = MaterialTheme.typography.subtitle1,
+                    modifier = Modifier
+                        .paddingFromBaseline(
+                            top = 20.dp, bottom = 8.dp
+                        )
+                        .shadow(shape = RectangleShape, elevation = 1.dp, spotColor = Color.Blue)
+                )
+            }
+        }
     }
 }
 
