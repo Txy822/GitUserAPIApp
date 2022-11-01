@@ -59,7 +59,7 @@ fun Home(
     navController: NavController
 ) {
     Users(users = state) { user ->
-        navController.navigate(route = "${Profile.route}?login=${user.login} id=${user.id}")
+        navController.navigate(route = "${Profile.route}?login=${user.login} id=${user.id} avatarUrl=${user.avatarUrl}")
     }
 }
 

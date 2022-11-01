@@ -5,6 +5,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.bumptech.glide.Glide.init
+import com.tes.eat.anywhere.userapiapp.BuildConfig
 import com.tes.eat.anywhere.userapiapp.model.data.remote.fake.Data
 import com.tes.eat.anywhere.userapiapp.model.data.remote.userresponse.User
 import com.tes.eat.anywhere.userapiapp.model.data.repository.UserRepository
@@ -21,9 +22,7 @@ class UserViewModel @Inject constructor(
     private val repository: UserRepository
 ) : ViewModel() {
 
-    private val VALID_TOKEN =
-        "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"
-
+    private val VALID_TOKEN:String = BuildConfig.TOKEN
     private val _personState: MutableState<List<Data>> = mutableStateOf(emptyList())
     val personState: MutableState<List<Data>>
         get() = _personState

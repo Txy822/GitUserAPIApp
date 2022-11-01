@@ -32,13 +32,16 @@ fun APPNavHost(
             )
         }
         composable(
-            "${Profile.route}?login={login} id={id}"
+            "${Profile.route}?login={login} id={id} avatarUrl={avatarUrl}"
         ) { backStackEntry ->
             val userName = backStackEntry.arguments?.getString("login")
             val id = backStackEntry.arguments?.getString("id")
+            val img= backStackEntry.arguments?.getString("avatarUrl")
 
             ProfileScreen(
-                userName = userName!!, id = id!!,
+                userName = userName!!,
+                id = id!!,
+                img=img!!,
                 navController = navController
             )
         }

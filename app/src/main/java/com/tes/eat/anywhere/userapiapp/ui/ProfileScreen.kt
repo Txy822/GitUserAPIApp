@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,7 +40,7 @@ import kotlinx.coroutines.withContext
 
 
 @Composable
-fun ProfileScreen(userName: String, id: String, navController: NavController) {
+fun ProfileScreen(userName: String, id: String, img:String, navController: NavController) {
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -49,11 +50,11 @@ fun ProfileScreen(userName: String, id: String, navController: NavController) {
         TopAppbarProfile(
             context = LocalContext.current.applicationContext,
             navController = navController,
-
             )
         ProfileDetail(
             username = userName,
             id = id,
+            img=img,
             context = LocalContext.current.applicationContext
         )
     }
@@ -92,6 +93,7 @@ fun TopAppbarProfile(context: Context, navController: NavController) {
 fun ProfileDetail(
     username: String,
     id: String,
+    img:String,
     context: Context = LocalContext.current.applicationContext
 ) {
     Column(
@@ -100,14 +102,16 @@ fun ProfileDetail(
             .shadow(shape = RectangleShape, ambientColor = Color.Gray, elevation = 4.dp)
             .background(Color.LightGray)
     ) {
-        UserDetails(context = context, username, id = id)
+        UserDetails(context = context, username=username, id = id, img=img)
     }
 }
 
 // This composable displays user's image, name, email and edit button
 @Composable
-private fun UserDetails(context: Context, username: String, id: String) {
-    val imagePainter = rememberAsyncImagePainter(R.drawable.person)
+private fun UserDetails(context: Context, username: String, id: String, img:String) {
+   // val imagePainter = rememberAsyncImagePainter(R.drawable.person)
+    val imagePainter = rememberAsyncImagePainter(img)
+
     val icon = rememberAsyncImagePainter(R.drawable.github)
 
     Card(
@@ -209,20 +213,24 @@ private fun UserDetails(context: Context, username: String, id: String) {
         text = "Posts: Three posts this month",
         style = MaterialTheme.typography.body1,
         modifier = Modifier
-            .padding(20.dp)
+            .padding(20.dp),
+        textAlign = TextAlign.Center
+
     )
     Text(
         text = "Follows: You followed 10 people ",
         style = MaterialTheme.typography.body1,
         modifier = Modifier
-            .padding(20.dp)
+            .padding(20.dp),
+        textAlign = TextAlign.Center
     )
 
     Text(
         text = "Repository: you have 103 repos",
         style = MaterialTheme.typography.body1,
         modifier = Modifier
-            .padding(20.dp)
+            .padding(20.dp),
+        textAlign = TextAlign.Center
     )
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
@@ -243,7 +251,9 @@ private fun UserDetails(context: Context, username: String, id: String) {
 
             style = MaterialTheme.typography.body1,
             modifier = Modifier
-                .padding(20.dp)
+                .padding(20.dp),
+            textAlign = TextAlign.Center
+
         )
     }
 

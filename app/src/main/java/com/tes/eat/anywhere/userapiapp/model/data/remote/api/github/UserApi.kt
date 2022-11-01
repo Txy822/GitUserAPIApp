@@ -11,22 +11,15 @@ import retrofit2.http.Query
 
 interface UserApi {
 
-@GET(UsersApiDetails.Search_end) //@GET("search/users")
-@Headers("Authorization:token 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")
+@GET(UsersApiDetails.Search_end)
+@Headers("Authorization:token your token key")
    suspend  fun getSearches(
-        //@Query("q") query:String
         @Query("q") query:String
         ):List<User> //call<Users>
 
-
-    @GET(UsersApiDetails.User_end) //@GET("users")
-    @Headers("Authorization:token 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")
-   suspend fun getUsers2(
-    ):List<User> //call<Users>
-
-    @GET(UsersApiDetails.User_end) //@GET("users")
+    @GET(UsersApiDetails.User_end)
     suspend fun getUsers(
         @Header("Authorization") accessToken: String
-    ):List<User> //call<Users>
+    ):List<User>
 
 }

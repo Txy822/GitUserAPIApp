@@ -11,11 +11,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.QueryName
 
-interface FakeApi {//we do not have to any implementation
-
-    @GET(FakeApiDetails.END_POINT)
-    suspend fun  getData2(): Response<Fake>
-
+interface FakeApi {
     @GET(FakeApiDetails.END_POINT)
     suspend fun getData(
         @Query("page") query:String
